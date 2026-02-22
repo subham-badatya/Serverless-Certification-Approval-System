@@ -104,9 +104,10 @@ You will create 4 functions. For each function:
 
 1. **Submit a Request**:
    ```bash
-   curl -X POST https://<YOUR-API-URL>/request \
-     -H "Content-Type: application/json" \
-     -d '{"name": "Alice", "course": "AWS Certified Developer", "cost": 150}'
+   Invoke-RestMethod -Method POST `
+-Uri "https://<your-api-url>/request" `
+-Headers @{ "Content-Type" = "application/json" } `
+-Body '{"name":"Rajesh","course":"AWS Certified Developer","cost":150}'
    ```
    *Response*: `{"requestId": "uuid...", "executionArn": "..."}`
 
@@ -116,20 +117,26 @@ You will create 4 functions. For each function:
 
 3. **Check Status (Pending)**:
    ```bash
-   curl https://<YOUR-API-URL>/request/<REQUEST-ID>
+   Invoke-RestMethod `
+-Uri https://<YOUR-API-URL>/request/<REQUEST-ID>
    ```
    *Response*: `{"status": "PENDING", ...}`
 
 4. **Approve Request**:
    ```bash
-   curl -X POST https://<YOUR-API-URL>/approval \
-     -H "Content-Type: application/json" \
-     -d '{"requestId": "<REQUEST-ID>", "decision": "APPROVED", "taskToken": "<PASTE-TOKEN-HERE>"}'
+   Invoke-RestMethod -Method POST `
+-Uri "https://<your-api-url>/approval" `
+-Headers @{ "Content-Type" = "application/json" } `
+-Body '{
+  "taskToken": "PASTE_TASK_TOKEN_HERE",
+  "decision": "APPROVED"
+}'
    ```
 
 5. **Verify Status (Approved)**:
    ```bash
-   curl https://<YOUR-API-URL>/request/<REQUEST-ID>
+   Invoke-RestMethod -Method GET `
+-Uri "https://<your-api-url/request/REQUEST_ID_HERE"
    ```
    *Response*: `{"status": "APPROVED", ...}`
 
@@ -142,3 +149,4 @@ If you receive a `{"error": "Task Timed Out"}` response when approving:
     1. Ensure your State Machine is **Standard** type (default for long-running processes).
 
     2. Submit a new request and approve it promptly.
+
