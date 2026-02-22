@@ -41,22 +41,22 @@ You will create 4 functions. For each function:
 
 ### 3.1 Function: `SubmitRequestFunction`
 1. Create function named `SubmitRequestFunction`.
-2. Copy code from [src/submit_request.py](src/submit_request.py).
+2. Copy code from [src/submit_request.py](submit_request.py).
 3. **Configuration** -> **Environment variables**:
    - Key: `STATE_MACHINE_ARN`
    - Value: *(Leave blank for now, we will update this later)*
 
 ### 3.2 Function: `NotifyManagerFunction`
 1. Create function named `NotifyManagerFunction`.
-2. Copy code from [src/notify_manager.py](src/notify_manager.py).
+2. Copy code from [src/notify_manager.py](notify_manager.py).
 
 ### 3.3 Function: `HandleApprovalFunction`
 1. Create function named `HandleApprovalFunction`.
-2. Copy code from [src/handle_approval.py](src/handle_approval.py).
+2. Copy code from [src/handle_approval.py](handle_approval.py).
 
 ### 3.4 Function: `CheckStatusFunction`
 1. Create function named `CheckStatusFunction`.
-2. Copy code from [src/check_status.py](src/check_status.py).
+2. Copy code from [src/check_status.py](check_status.py).
 3. **Configuration** -> **Environment variables**:
    - Key: `TABLE_NAME`
    - Value: `CertificationRequests`
@@ -140,4 +140,5 @@ If you receive a `{"error": "Task Timed Out"}` response when approving:
 - **Cause**: The Step Functions execution took too long and timed out. This often happens if you accidentally created an **Express Workflow** (which has a 5-minute limit) instead of a **Standard Workflow**.
 - **Fix**: 
     1. Ensure your State Machine is **Standard** type (default for long-running processes).
+
     2. Submit a new request and approve it promptly.
